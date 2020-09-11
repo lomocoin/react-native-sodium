@@ -626,7 +626,7 @@ public class RCTSodiumModule extends ReactContextBaseJavaModule {
   public void crypto_sign_ed25519_sk_to_curve25519(final String sk, final Promise p) {
     try {
       byte[] skb = Base64.decode(sk, Base64.NO_WRAP);
-      if(skb.length != Sodium.crypto_sign_secretkeybytes()){
+      if(skb.length != Sodium.crypto_box_secretkeybytes()){
         p.reject(ESODIUM,ERR_BAD_KEY);
       }
       else {

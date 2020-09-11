@@ -466,7 +466,7 @@ RCT_EXPORT_METHOD(crypto_sign_ed25519_sk_to_curve25519:(NSString*)ed_sk resolve:
   const NSData *ded_sk = [[NSData alloc] initWithBase64EncodedString:ed_sk options:0];
   unsigned char *curve_sk = (unsigned char *) sodium_malloc(crypto_box_SECRETKEYBYTES);
   if (!ded_sk || !curve_sk) reject(ESODIUM,ERR_FAILURE,nil);
-  else if (ded_sk.length != crypto_sign_SECRETKEYBYTES) reject(ESODIUM,ERR_BAD_KEY,nil);
+  else if (ded_sk.length != crypto_box_SECRETKEYBYTES) reject(ESODIUM,ERR_BAD_KEY,nil);
   else if (crypto_sign_ed25519_sk_to_curve25519(curve_sk, [ded_sk bytes]) != 0)
     reject(ESODIUM,ERR_FAILURE,nil);
   else {
